@@ -4,6 +4,6 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 def resume():
-    return flask.send_file("Jeremy_Smart_Resume_spring2023_final.pdf")
+    return flask.send_file("Jeremy_Smart_fall2023.pdf")
 
 app.run()
