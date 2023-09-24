@@ -6,4 +6,5 @@ app = flask.Flask(__name__)
 def resume():
     return flask.send_file("Jeremy_Smart_fall2023.pdf")
 
-app.run()
+if __name__ == '__main__':
+    app.run()
