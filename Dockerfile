@@ -1,13 +1,11 @@
-FROM python:3.10-buster
+FROM nginx:alpine
 
-WORKDIR /app
+WORKDIR /resume
 
-COPY requirements.txt .
+RUN sh -c "apk update && apk add texlive-full"
 
-RUN pip install -r requirements.txt
-
-COPY app.py .
-COPY Jeremy_Smart_fall2023.pdf .
-
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--port=8080"]
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY resume.tex .
+RUN pdflatex resume.tex
+RUN mv resume.pdf Jeremy_Smart_resume.pdf
 
