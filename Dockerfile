@@ -9,6 +9,6 @@ COPY resume.tex .
 RUN pdflatex resume.tex
 RUN mv resume.pdf Jeremy_Smart_resume.pdf
 
-RUN chown -R 1000:1000 /etc /var /run
-USER 1000
+RUN chown -RL 1000:1000 /etc /var
+USER 1000:1000
 
