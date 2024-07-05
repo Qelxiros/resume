@@ -1,16 +1,13 @@
-FROM nginx:alpine
+FROM alpine:latest as builder
+
+RUN apk update && apk add texlive-full
+COPY resume.tex .
+RUN pdflatex resume.tex
+
+FROM nginxinc/nginx-unprivileged
 
 WORKDIR /resume
 
-RUN sh -c "apk update && apk add texlive-full"
-RUN apk add shadow
-
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY resume.tex .
-RUN pdflatex resume.tex
-RUN mv resume.pdf Jeremy_Smart_resume.pdf
-
-RUN useradd www
-RUN chown -RL www:www /etc /var
-USER www:www
+COPY --from=builder resume.pdf Jeremy_Smart_resume.pdf
 
